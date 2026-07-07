@@ -1,4 +1,4 @@
-# iris-statistical-eda
+# IRIS STATISTICAL EDA
 
 Exploratory statistical analysis of the Iris dataset using **NumPy, SciPy & Matplotlib** — summary stats, normality tests, correlation, ANOVA/t-tests, and outlier detection. No pandas or sklearn used for the statistics.
 
