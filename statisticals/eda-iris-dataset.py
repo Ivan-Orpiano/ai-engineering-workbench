@@ -87,4 +87,35 @@ for j,name in enumerate(feature_names):
     print(f"{name:<18}{sw_stat:>10.4f}{sw_p}"
           f"{k2_stat:>10.4f}{k2_p:>12.2e} {verdict}")
     
-    #####
+
+def gaussian_kde_curve(data, grid):
+    #Manual KDE via scipy.stats.gaussian_kde
+    kde = stats.gaussian_kde(data)
+    return kde(grid)
+
+#Histograms and KDE Overlay
+fig, axes = plt.subplots(2,2, figsize = (11,8))
+for j, (name, ax) in enumerate(zip(feature_names, axes.ravel())):
+    col = X[:, j]
+    ax.hist(col, bins = 20, density = True, color = "#4C72B0",
+            alpha = 0.55, edgecolor = "white", label = "histogram")
+    grid= np.linspace(col.min(), col.max(), 200)
+    ax.plot(grid, gaussian_kde_curve(col, grid), color = "#C44E52", lw = 2, label = "KDE")
+    
+    mu, sigma = np.mean(col), np.std(col, ddof = 1)
+    ax.plot(grid, stats.norm.pdf(grid, mu, sigma), "k--", lw=1.2, label = "normal fit")
+    
+    ax.set_title(name)
+    ax.set_xlabel("value (cm)")
+    ax.set_ylabel("density")
+    ax.legend(fontsize=7)
+    
+fig.suptitle("Feature Distributions: Histogram + KDE + Normal Fit", y =1.00)
+fig.tight_layout()
+fig.savefig(f"{OUTDIR}/01_distributions.png", bbox_inches = "tight")
+plt.close(fig)
+
+    
+
+
+
