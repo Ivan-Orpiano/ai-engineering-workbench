@@ -116,6 +116,38 @@ fig.savefig(f"{OUTDIR}/01_distributions.png", bbox_inches = "tight")
 plt.close(fig)
 
     
+#CORRELATION AND HYPTHESIS TESTING
+
+# PEARSON AND SPEARMAN CORRELATION DIFF.
+pearson = np.corrcoef(X, rowvar=False)
+spearman, _ = stats.spearman(X)
+
+print ("\nPearson correlation matrix: ")
+print(pd.DataFrame(pearson, index = feature_names, columns = feature_names).round(3))
+print("\nSpearman correlation matrix: ")
+print(pd.DataFrame(spearman, index = feature_names, columns = feature_names).round(3))
+
+mask = ~np.eye(n_features, dtype = bool)
+abs_corr = np.where(mask, np.abs(pearson), 0)
+i, j = np.unravel_index(np.argmax(abs_corr), abs_corr.shape)
+print(f"\nStrongest linear pair: {feature_names[i]} < - > {feature_names[j]}" f"(Pearson r = {pearson[i,j]:.3f})")
+
+
+#ANOVA ACROSS 3 SPECIES FEATURE (SETOSA/VERSICOLOR/VIGINICA)
+groups = {sp: X[iris.target == k] for k, sp in enumerate(iris.target_names)}
+print(f"\fOne-way ANOVA across species(H0: equal means) a= {ALPHA}")
+print("-" * 60)
+for j, name in enumerate(feature_names):
+    samples = [g[:,j] for g in groups.value()]
+    f_stat, p_val = stats.f_oneway(*samples)
+    sig = "YES" if p_val < ALPHA else "no"
+    print(f"{name:<18}{f_stat:>12.3f}{p_val:>14.3e}{sig}")
+    
+    
+#follow up t-test: versicolor vs virginica
+
+
+
 
 
 
