@@ -145,9 +145,18 @@ for j, name in enumerate(feature_names):
     
     
 #follow up t-test: versicolor vs virginica
-
-
-
+print("\nWelch t-test: Versicolor vs Virginica")
+print(f"{'feature' :<18}{'t-stat':>12}{'p-value':>14} significant?")
+print("-" * 60)
+ver, vir = groups["versicolor"], groups["virginica"]
+for j, name in enumerate(feature_names):
+    t_stat, p_val = stats.ttest_ind
+    sig = "YES" if p_val < ALPHA else "NO"
+    print(f"{name:<18}{t_stat:>12.3f}{p_val:>14.3e} {sig}")
+    
+    
+    
+#VISUALIZATION | HEATMAP | BOXPLOTS | SCATTER MATRIX
 
 
 
