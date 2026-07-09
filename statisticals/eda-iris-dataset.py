@@ -178,7 +178,23 @@ fig.tight_layout()
 fig.savefig(f"{OUTDIR}/02_corr_heatmap.png", bbox_inches = "tight")
 plt.close(fig)
 
-g
+#BOXPLOTS
+colors = ["#4C72B0", "#DD8452", "#55A868"]
+fig, axes = plt.subplots(2, 2, figsize=(11, 8))
+for j, (name, ax) in enumerate(zip(feature_names, axes.ravel())):
+    data_by_group = [groups[sp][:, j] for sp in iris.target_names]
+    bp = ax.boxplot(data_by_group, tick_labels=iris.target_names,
+                    patch_artist=True, showmeans=True)
+    for patch, c in zip(bp["boxes"], colors):
+        patch.set_facecolor(c); patch.set_alpha(0.6)
+    ax.set_title(name); ax.set_ylabel("value (cm)")
+fig.suptitle("Feature Distributions by Species (boxplots)", y=1.00)
+fig.tight_layout()
+fig.savefig(f"{OUTDIR}/03_boxplots_by_species.png", bbox_inches="tight")
+plt.close(fig)
+
+
+
 
 
 
