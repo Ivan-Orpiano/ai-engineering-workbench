@@ -160,3 +160,25 @@ for j, name in enumerate(feature_names):
 
 
 
+print("VISUALIZATION")
+fig, ax = plt.subplots(figsize = (6.5,5.5)) 
+im = ax.imshow(pearson, cmap = "coolwarm", vmin = -1, vmax = 1)
+ax.set_xticks(range(n_features)); ax.set_yticks(range(n_features))
+ax.set_xticklabels(feature_names, rotation = 45, ha="right")
+ax.set_yticklabels(feature_names)
+for r in range(n_features):
+    for c in range(n_features):
+        ax.text(c,r, f"{pearson[r,c]:.2f}", ha = "center", va="center", 
+                color = "white" if abs(pearson[r,c]) > 0.5 else "black", fontsize = 9)
+
+ax.set_title("Pearson Correlation Heatmap")
+fig.colorbar(im, ax=ax, fraction = 0.046, pad = 0.04, label = "r")
+ax.grid(False)
+fig.tight_layout()
+fig.savefig(f"{OUTDIR}/02_corr_heatmap.png", bbox_inches = "tight")
+plt.close(fig)
+
+g
+
+
+
