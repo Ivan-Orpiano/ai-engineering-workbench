@@ -55,7 +55,7 @@ n_samples, n_features = X.shape
 summary= {}
 for j, name in enumerate(feature_names):
     col = X[:, j]
-    q1, 13 = np.percentile(col, [25,75])
+    q1, q3 = np.percentile(col, [25,75])
     summary[name] = {
         "mean":         np.mean(col),
         "median":       np.median(col),
@@ -192,6 +192,36 @@ fig.suptitle("Feature Distributions by Species (boxplots)", y=1.00)
 fig.tight_layout()
 fig.savefig(f"{OUTDIR}/03_boxplots_by_species.png", bbox_inches="tight")
 plt.close(fig)
+
+
+target = iris.target
+fig, axes = plt.subplots(n_features, n_features, figsize = (11,11))
+for r in range(n_features):
+    for c in range(n_features):
+        ax = axes[r,c]
+        if r == c:
+            #diagonal per species
+            for k, sp in enumerate(iris.target_names):
+                ax.hist(X[target == k, r], bins = 15, alpha = 0.5, color = colors[k])
+                
+        else:
+            for k in range(3):
+                ax.scatter(X[target == k,c], X[target == k,r], s= 12, alpha = 0.6, color = colors[k])
+                
+        if r == n_features - 1:
+            ax.set_xlabel(features_names[c], fontsize = 8)
+        if c == 0:
+            ax.set_ylabel(features_names[r], fontsize = 8)
+        ax.tick_params(labelsize = 7)
+handles = [plt.Line2D([0], [0], marker = '0', ls = "", color = colors [k], label=sp) for k, sp, in enumerate(iris.target_names)]
+fig.legend(handles = handles, loc= "upper right", title = "species")
+fig.suptitle("Scatter-Plot Matrix (Pairplot - style)", y = 1.00)
+fig.tight_layout()
+fig.savefig(f"{OUTDIR}/04_scatter_matrix.png", bbox_inches = "tight")
+plt.close(fig) 
+
+
+                
 
 
 
