@@ -15,7 +15,7 @@ Exploratory statistical analysis of the Iris dataset using **NumPy, SciPy & Matp
 
 ## Stack
 
-`numpy` · `scipy` · `matplotlib` — pandas only loads the data, no ML models.
+`numpy` · `scipy` · `matplotlib`, `seaborn`, `sklearn` — pandas only loads the data, no ML models.
 
 
 Prints all statistical summaries to the console and writes figures to `./figures/`.
