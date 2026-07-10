@@ -11,9 +11,6 @@ import seaborn as sns
 data = fetch_california_housing(as_frame=True)
 df = data.frame
 
-# #Define features and target
-# X = df[['MedInc', 'HouseAge', 'AveRooms']]
-# y = df['MedHouseVal']
 
 #Inpect data 
 print(df.info())
