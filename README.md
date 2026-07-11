@@ -25,8 +25,4 @@ Hands-on implementations of the core mathematical concepts behind AI engineering
 
 `numpy` · `scipy` · `matplotlib` · `seaborn` · `sklearn`
 
-> sklearn is used only for datasets and result validation — every algorithm is implemented manually.
-
-Prints all derivations and numeric results to the console and writes figures to `./figures/`.
-
 
