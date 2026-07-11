@@ -1,32 +1,32 @@
-# IRIS STATISTICAL EDA
+# 🧮 AI ENGINEERING MATH
 
-Exploratory statistical analysis of the Iris dataset using **NumPy, SciPy & Matplotlib** — summary stats, normality tests, correlation, ANOVA/t-tests, and outlier detection. No pandas or sklearn used for the statistics.
+> Coding the mathematical foundations of AI engineering — from scratch.
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white)
+![SciPy](https://img.shields.io/badge/SciPy-8CAAE6?logo=scipy&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?logo=plotly&logoColor=white)
+
+
+Hands-on implementations of the core mathematical concepts behind AI engineering using **NumPy, SciPy & Matplotlib** — linear algebra, calculus, probability, and optimization, all coded from scratch. No high-level ML abstractions for the math itself.
 
 ![demo](figures/demo.gif)
 
-## Features
+## ✨ Features
 
-- **Summary stats** — mean, median, variance, std, IQR per feature
-- **Normality** — Shapiro–Wilk + D'Agostino K²
-- **Correlation** — Pearson & Spearman matrices
-- **Hypothesis tests** — one-way ANOVA across species + Welch t-test
-- **Outliers** — z-score detection (|z| > 3)
-- **Plots** — distributions, correlation heatmap, boxplots, scatter matrix
+- **Linear algebra** — vectors, matrix operations, projections, eigendecomposition
+- **Calculus** — derivatives, gradients, and the chain rule behind backpropagation
+- **Probability & statistics** — distributions, expectation, variance, hypothesis testing
+- **Regression** — linear & logistic regression via gradient descent from scratch
+- **Regularization** — L1/L2 penalties and the bias–variance tradeoff
+- **Optimization** — loss surfaces, gradient descent variants, convergence visualization
 
-## Stack
+## 🛠 Stack
 
-`numpy` · `scipy` · `matplotlib`, `seaborn`, `sklearn` — pandas only loads the data, no ML models.
+`numpy` · `scipy` · `matplotlib` · `seaborn` · `sklearn`
 
+> sklearn is used only for datasets and result validation — every algorithm is implemented manually.
 
-Prints all statistical summaries to the console and writes figures to `./figures/`.
+Prints all derivations and numeric results to the console and writes figures to `./figures/`.
 
-## Output
-
-| File | Content |
-|------|---------|
-| `01_distributions.png` | Histograms + KDE + normal fit |
-| `02_corr_heatmap.png` | Pearson correlation heatmap |
-| `03_boxplots_by_species.png` | Feature distributions by class |
-| `04_scatter_matrix.png` | Pairplot-style scatter matrix |
-| `05_outliers.png` | Standardized boxplot + flagged points |
 
