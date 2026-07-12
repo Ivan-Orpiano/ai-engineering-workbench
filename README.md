@@ -1,4 +1,4 @@
-# 🧮 AI Engineering Workbench
+# AI Engineering Workbench
 
 > Coding the mathematical and statistical foundations of AI engineering — from scratch.
 
@@ -15,7 +15,7 @@ A hands-on workbench where I implement the core math and statistics behind machi
 
 ---
 
-## ✨ Highlights
+## Highlights
 
 - **Exploratory Data Analysis** — distributions, boxplots by class, scatter matrices, and outlier detection on real datasets
 - **Regression & Diagnostics** — linear regression built step by step, with advanced statistical diagnostics (residuals, confidence intervals, hypothesis tests)
@@ -24,11 +24,11 @@ A hands-on workbench where I implement the core math and statistics behind machi
 - **Reproducible Visuals** — fixed seeds, consistent plot styling, and every figure exported automatically to `figures/`
 
 
-## 🛠 Stack
+## Stack
 
 `numpy` · `scipy` · `pandas` · `matplotlib` · `seaborn` · `scikit-learn`
 
-## 🎯 Why This Repo
+## Why This Repo
 
 Understanding the math behind AI — not just calling `.fit()` — is what separates using models from engineering them. This workbench is where I sharpen that foundation: statistics, regression theory, and data analysis, implemented and visualized by hand.
 
