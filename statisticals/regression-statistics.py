@@ -83,7 +83,63 @@ def degree_sweep(X, y, degrees=range(1,16)):
     return best_d
 
 
+#BOOTSTRAP BIAS OR VARIANCE DECOMPOSITION
+def bias_variance(X, y, degrees=(1,3,6,10,15), n_boot = 120):
+    x_grid = np.linspace(X.min(), X.max(), 100).reshape(-1, 1)
+    truth = true_function(x_grid.ravel())
+    
+    print("\n" + "=" * 68)
+    print("BOOTSTRAP BIAS-VARIANCE DECOMPOSITION (EXPECTED TEST ERROR)")
+    print("=" * 68)
+    print(f"{'def':>3}  {'bias^2':>9} {'variance':>9} {'bias^2+var':> 11}  ")
+    for d in degrees:
+        preds = np.zeros((n_boot, len(x_grid)))
+        for b in range(n_boot):
+            idx = RNG.integers(0, len(X), len(X))
+            pipe = poly_pipe(d).fit(X[idx], y[idx])
+            preds[b] = pipe.predict(x_grid)
+        mean_pred = preds.mean(axis=0)
+        bias2 = np.mean((mean_pred - truth)**2)
+        var = np.mean((preds.var(axis=0)))
+        print(f"{d:>3}{bias2:>9.3f} {var:>9.3f} {bias2+ var:>11.3f}")
+    print("As degree rises: bias^2 falls, variance rises -> U-shaped total error.")
 
+
+
+#REGULARIZATION ON A HIGH DEGREE BASIS
+def regularization_compare(X_train, X_test, y_train, y_test, degree-12):
+    kf = KFold(n_splits = 5, shuffle=True, random_state=7)
+    alphas = np.logspace(-3,3,60)
+    l1_ratios = [0.1,0.5,0.7,0.9,0.95,1.0]
+    
+    models = {
+        "OLS (NO REGRESSION)": LinearRegression(),
+        "RidgeCV (L2)": RidgeCV(alphas = alphas, cv=kf),
+        "LassoCV(L1)":  LassoCV(alphas-alphas, l1_ratio=l1_ratios, cv=kf, max_iter=20000, random_state=7),
+        "ElasticNetCV": ElasticNetCV(alphas = alphas, l1_ratio=l1_ratios, cv=kf, max_iter=20000, random_state=7),
+    }
+    
+    print("\n" + "=" * 68)
+    print(f"REGULARIZATION on degree - {degree} features (tames overfitting)")
+    print("=" * 68)
+    print(f"{'model' : < 15} {'train_R2':> 9}{'test_R2':>9} {'test_RMSE':>11}"
+          f"{'alpha':>10} {'nonzero':>9}")
+    for name, est in models.items():
+        pipe = poly_pipe(degree, est).fit(X_train, y_train)
+        tr
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
