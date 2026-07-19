@@ -126,8 +126,17 @@ def regularization_compare(X_train, X_test, y_train, y_test, degree-12):
           f"{'alpha':>10} {'nonzero':>9}")
     for name, est in models.items():
         pipe = poly_pipe(degree, est).fit(X_train, y_train)
-        tr
-    
+        tr_r2 = r2_score(y_train, pipe.predict(X_train))
+        te_r2 = r2_score(y_test, pipe.predict(X_test))
+        te_rmse = np.sqrt(mean_squared_error(y_test, pipe.predict(X_test)))
+        fitted = pipe.named_steps[list(pipe.named_steps)[-1]]
+        alpha = getattr(fitted, "alpha_", np.nan)
+        nonzero = int(np.sum(np.abs(fitted.coef_) > 1e-6))
+        total = len(fitted.coef_)
+        print(f"{name :<15}{tr_r2:>9.4f}{te_r2:>9.4f}{te_rmse:>11.3f}" 
+              f"{alpha:>10.4f}{nonzero:>6}/{total}")
+    print(" OLS overfits (train)R2 >> test_R2). Lasso zeroes redundant powers")
+    print(" (sparsity/feature selection); Ridge shrinks all coefs smoothly.")
     
     
     
