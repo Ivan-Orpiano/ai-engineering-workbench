@@ -107,7 +107,7 @@ def bias_variance(X, y, degrees=(1,3,6,10,15), n_boot = 120):
 
 
 #REGULARIZATION ON A HIGH DEGREE BASIS
-def regularization_compare(X_train, X_test, y_train, y_test, degree-12):
+def regularization_compare(X_train, X_test, y_train, y_test, degree=12):
     kf = KFold(n_splits = 5, shuffle=True, random_state=7)
     alphas = np.logspace(-3,3,60)
     l1_ratios = [0.1,0.5,0.7,0.9,0.95,1.0]
@@ -137,6 +137,8 @@ def regularization_compare(X_train, X_test, y_train, y_test, degree-12):
               f"{alpha:>10.4f}{nonzero:>6}/{total}")
     print(" OLS overfits (train)R2 >> test_R2). Lasso zeroes redundant powers")
     print(" (sparsity/feature selection); Ridge shrinks all coefs smoothly.")
+    
+def regularization_paths(X,y, degree = 12):
     
     
     
