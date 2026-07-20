@@ -139,11 +139,48 @@ def regularization_compare(X_train, X_test, y_train, y_test, degree=12):
     print(" (sparsity/feature selection); Ridge shrinks all coefs smoothly.")
     
 def regularization_paths(X,y, degree = 12):
+    poly = make_pipeline(PolynomialFeatures(degree, include_bias = False), StandardScaler())
+    Xp = poly.fit_transform(X)
+    alphas = np.logspace(-2, 4, 80)
+    
+    ridge_coefs = np.array([Ridge(alpha = a).fit(Xp, y).coef_ for a in alphas])
+    
+    fig, axes = plt.subplots(1,2, figsize=(12,5), sharey = True)
+    for coefs, ax, title in [(ridge_coefs, axes[0], "Ridge [L2] - Smooth Shrink"),
+                             (lasso_coefs, axes[1], "Lassos [L1] - Sparse Selection")]:
+        
+        for j in range(coefs.shape[1]):
+            ax.plot(alphas, coefs[:, j], alpha = 0.8)
+        ax.set_xscale("log")
+        ax.set_xscale("log")
+        ax.set_xlabel("Alpha (regularization strength)")
+        ax.set_title(title)
+        ax.axhline(0, color = "k", lw = 0.6)
+        ax.grid(alpha=0.3)
+        
+    axes[0].set_ylabel("coefficient value")
+    fig.suptitle(f"Regularization Paths (degree-{degree} polynomial features)")
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/regularization_paths.png", dpi=130)
+    plt.close(fig)
+    print("\n  Saved plots: validation_curve.png, regularization_paths.png")
     
     
-    
-    
-    
+def main():
+    X, y = make_data(n=120, noise=6.0)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.25, random_state=7)
+    print(f"Nonlinear data: {len(X)} points on a cubic+sine curve with noise.\n")
+
+    degree_sweep(X, y)
+    bias_variance(X, y)
+    regularization_compare(X_train, X_test, y_train, y_test, degree=12)
+    regularization_paths(X, y, degree=12)
+    print("\nDone.")
+
+
+if __name__ == "__main__":
+    main()    
     
     
     
