@@ -18,7 +18,18 @@ model= LogisticRegression()
 model.fit(X_train, y_train)
 
 #predict
+y_predict = model.predict(X_test)
 
+#confusion metric
+cm = confusion_matrix(y_test, y_predict)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Not Class 0", "Class 0"])
+disp.plot(cmap = "Blues")
+plt.title("Confusion Matrix")
+plt.show()
+
+#classification Metrics
+print("\n Classification Report: ")
+print(classification_report(y_test, y_predict))
 
 
 
