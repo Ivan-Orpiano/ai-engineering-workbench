@@ -41,9 +41,21 @@ def make_dataset(n: int  = 500) -> tuple[pd.DataFrame, pd.Series, dict]:
     X = pd.DataFrame({"x1": x1, "x2": x2, "x3": x3, "x4": x4})
     return X, pd.Series(y, name="y"), true_coefs
 
+#METRICS HELPERS
+
+def adjusted_r2(r2: float, n: int, p: int) -> float:
+    """Penalize R2 for the number of predictors p (excluding intercept)."""
+    return 1 - (1 - r2) * (n - 1) / (n - p - 1)
 
 
-
+def regression_report(name: str, y_true, y_pred, n: int, p: int) -> dict:
+    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+    mae = mean_absolute_error(y_true, y_pred)
+    r2 = r2_score(y_true, y_pred)
+    adj = adjusted_r2(r2, n, p)
+    print(f"  {name:<20}  RMSE={rmse:6.3f}  MAE={mae:6.3f}  "
+          f"R2={r2:6.4f}  AdjR2={adj:6.4f}")
+    return {"model": name, "rmse": rmse, "mae": mae, "r2": r2, "adj_r2": adj}
 
 
 
