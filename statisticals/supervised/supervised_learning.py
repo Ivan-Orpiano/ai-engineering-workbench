@@ -41,6 +41,11 @@ def make_dataset(n: int  = 500) -> tuple[pd.DataFrame, pd.Series, dict]:
     X = pd.DataFrame({"x1": x1, "x2": x2, "x3": x3, "x4": x4})
     return X, pd.Series(y, name="y"), true_coefs
 
+#METRICS HELPERS
+
+def adjusted_r2(r2: float, n: int, p: int) -> float:
+    """Penalize R2 for the number of predictors p (excluding intercept)."""
+    return 1 - (1 - r2) * (n - 1) / (n - p - 1)
 
 
 
