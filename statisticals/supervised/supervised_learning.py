@@ -54,7 +54,8 @@ def regression_report(name: str, y_true, y_pred, n: int, p: int) -> dict:
     r2 = r2_score(y_true, y_pred)
     adj = adjusted_r2(r2, n, p)
     print(f"  {name:<20}  RMSE={rmse:6.3f}  MAE={mae:6.3f}  "
-
+          f"R2={r2:6.4f}  AdjR2={adj:6.4f}")
+    return {"model": name, "rmse": rmse, "mae": mae, "r2": r2, "adj_r2": adj}
 
 
 
