@@ -51,6 +51,10 @@ def adjusted_r2(r2: float, n: int, p: int) -> float:
 def regression_report(name: str, y_true, y_pred, n: int, p: int) -> dict:
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     mae = mean_absolute_error(y_true, y_pred)
+    r2 = r2_score(y_true, y_pred)
+    adj = adjusted_r2(r2, n, p)
+    print(f"  {name:<20}  RMSE={rmse:6.3f}  MAE={mae:6.3f}  "
+
 
 
 
