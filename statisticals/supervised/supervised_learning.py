@@ -48,6 +48,7 @@ def adjusted_r2(r2: float, n: int, p: int) -> float:
     return 1 - (1 - r2) * (n - 1) / (n - p - 1)
 
 
+def regression_report(name: str, y_true, y_pred, n: int, p: int) -> dict:
 
 
 
